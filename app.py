@@ -371,6 +371,23 @@ def create_app(test_config=None):
 
     init_db(app)
 
+    @app.get("/")
+    def index():
+        return jsonify(
+            {
+                "name": "Provenance Guard API",
+                "status": "running",
+                "endpoints": {
+                    "health": "GET /health",
+                    "submit": "POST /submit",
+                    "appeal": "POST /appeal",
+                    "log": "GET /log",
+                    "appeals": "GET /appeals",
+                    "analytics": "GET /analytics",
+                },
+            }
+        )
+
     @app.get("/health")
     def health():
         return jsonify({"status": "ok"})
